@@ -30,7 +30,7 @@ Tudo segue o manual em `assets/Julia-Marcos-MARCA.pdf`.
 index.html   A página principal do site
 traje.html   Explicação do traje, com o mesmo menu e rodapé (copiados, pois não há PHP para reaproveitar)
 sass/        Código-fonte dos estilos
-css/         grid.css e reset.css (à mão), main.css (compilado, fora do Git)
+css/         grid.css e reset.css (à mão), main.css (compilado pelo Live Sass, não editar à mão)
 js/          app.js orquestra os módulos de js/modules/
 images/      Logos, favicon, posters do vídeo, ícones, texturas e fotos do casal (image-1 a image-12)
 videos/      Vídeos do hero, nas versões vertical e horizontal
@@ -50,7 +50,7 @@ Abrir o arquivo com dois cliques não funciona por completo: o navegador bloquei
 
 ## Publicação
 
-1. Confirme que `css/main.css` está compilado, porque ele não é versionado.
+1. Confirme que `css/main.css` está compilado e incluído no commit: o GitHub Pages publica só o que está no repositório e não compila SASS.
 2. Troque `DOMINIO` no `<head>` do `index.html` e do `traje.html` pelo domínio real.
 3. Envie para a hospedagem apenas `index.html`, `traje.html`, `css/`, `js/`, `images/` e `videos/`.
 

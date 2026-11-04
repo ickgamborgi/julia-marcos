@@ -1,10 +1,5 @@
 # Arquivos do sistema
 .DS_Store
 
-# CSS compilado pelo Live Sass (gerado a partir de /sass)
-# grid.css e reset.css ficam de fora desta regra porque são escritos à mão
-/css/main.css
-/css/main.css.map
-
 # Dependências, caso um dia sejam adicionadas
 node_modules/
