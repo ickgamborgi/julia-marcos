@@ -1,0 +1,84 @@
+// Detalhes: mensagem de boas-vindas e cartões com as informações do casamento.
+
+@use "../abstracts/variables" as a;
+@use "../abstracts/mixins" as m;
+@use "../abstracts/fonts" as f;
+
+/* --Primeiro: Mobile--- */
+.detalhes-con {
+    padding-block: a.$secao-espaco;
+    color: a.$bordo;
+}
+
+// O grid.css só define espaço entre colunas, então as linhas ficam aqui
+.detalhes-lista {
+    row-gap: 24px;
+    margin-top: 48px;
+}
+
+.detalhes-intro {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+}
+
+// Só o contorno leve define o cartão: o fundo é o próprio creme da página
+.detalhes-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 40px 24px;
+    border: 0.5px solid transparent;
+    border-radius: a.$raio;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+}
+
+// A altura é fixa e a largura acompanha: cada desenho tem proporção própria
+.detalhes-icone {
+    width: auto;
+    height: 80px;
+    margin-bottom: 4px;
+}
+
+.detalhes-titulo {
+    @include f.fonte-script;
+    font-size: 2.75rem;
+}
+
+// Sublinhado porque é o único sinal de que o texto é clicável: a cor é quase a do parágrafo
+.detalhes-link {
+    @include f.fonte-titulo;
+    font-size: 1.25rem;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 1px;
+
+    &:hover {
+        color: a.$oliva;
+    }
+}
+
+.detalhes-texto {
+    max-width: 440px; // mantém as linhas centralizadas, sem encostar nas laterais do cartão
+    color: a.$vinho;
+    text-wrap: balance; // evita uma palavra sozinha na última linha
+}
+
+@include m.tablet {
+    .detalhes-item {
+        padding: 48px 32px;
+    }
+}
+
+@include m.desktop {
+    .detalhes-con {
+        padding-block: a.$secao-espaco-desktop;
+    }
+
+    // Mesmo valor do espaço entre colunas no grid.css, para os quatro cartões ficarem por igual
+    .detalhes-lista {
+        row-gap: 30px;
+    }
+}

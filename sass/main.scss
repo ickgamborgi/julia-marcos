@@ -1,0 +1,21 @@
+// Arquivo principal: só reúne as parciais. A ordem importa, do mais geral ao mais específico.
+
+// Base
+@use "base/reset";
+@use "base/general";
+
+// Componentes, na ordem em que aparecem na página
+@use "components/buttons";
+@use "components/header";
+@use "components/hero";
+@use "components/details";
+@use "components/rsvp";
+@use "components/gifts";
+@use "components/counter";
+@use "components/gallery";
+@use "components/faq";
+@use "components/help";
+@use "components/footer";
+
+// Páginas
+@use "pages/traje";

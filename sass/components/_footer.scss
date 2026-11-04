@@ -1,0 +1,52 @@
+// Footer: rodapé do site.
+
+@use "../abstracts/variables" as a;
+@use "../abstracts/fonts" as f;
+
+/* --Primeiro: Mobile--- */
+.footer-con {
+    // Mesma distância até a borda em cima (logo) e embaixo (copyright)
+    padding-block: 56px;
+    background-color: a.$vinho;
+    color: a.$creme;
+}
+
+.footer-conteudo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    text-align: center;
+}
+
+// O arquivo da logo é quadrado, com sobra acima e abaixo da arte.
+// O recorte deixa a imagem exatamente na altura do desenho, sem somar espaço ao padding.
+.footer-logo {
+    width: 200px;
+    height: 77px;
+    margin-bottom: 20px; // o recorte tirou a sobra da arte: separa a logo da data
+    object-fit: cover;
+}
+
+.footer-data {
+    @include f.fonte-titulo;
+    font-size: 1.25rem;
+}
+
+.footer-topo {
+    @include f.fonte-rotulo;
+    margin-top: 24px;
+    padding: 12px;
+    text-decoration: none;
+
+    &:hover {
+        color: a.$verde-claro;
+    }
+}
+
+.footer-copyright {
+    margin-top: 16px;
+    font-size: 0.8125rem;
+    line-height: 1; // sem a folga da entrelinha, que somaria ao espaço inferior
+    opacity: 0.8;
+}

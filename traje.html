@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<!-- Head -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Título e descrição -->
+    <title>Traje Passeio Completo | Julia &amp; Marcos</title>
+    <meta name="description" content="Traje Passeio Completo: o que vestir no casamento de Julia &amp; Marcos, em 29 de maio de 2027, no Villa Casarão.">
+
+    <!-- Open Graph. As redes sociais exigem endereço absoluto: trocar DOMINIO pelo domínio real -->
+    <meta property="og:title" content="Traje Passeio Completo | Julia &amp; Marcos">
+    <meta property="og:description" content="O que vestir no casamento de Julia &amp; Marcos, em 29 de maio de 2027, no Villa Casarão.">
+    <meta property="og:image" content="https://DOMINIO/images/og-image.jpg">
+    <meta property="og:url" content="https://DOMINIO/traje.html">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="pt_BR">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Traje Passeio Completo | Julia &amp; Marcos">
+    <meta name="twitter:description" content="O que vestir no casamento de Julia &amp; Marcos, em 29 de maio de 2027, no Villa Casarão.">
+    <meta name="twitter:image" content="https://DOMINIO/images/og-image.jpg">
+
+    <!-- Favicon -->
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+
+    <!-- CSS: reset e grid escritos à mão, depois o compilado do SASS -->
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/grid.css">
+    <link rel="stylesheet" href="css/main.css">
+
+
+    <!-- Google Fonts: as três famílias indicadas no manual de marca -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400..700&family=Luxurious+Script&family=Nunito:wght@300..700&display=swap">
+
+    <!-- Font Awesome (ícones) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <!-- GSAP + ScrollTrigger (animações) -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" integrity="sha512-NcZdtrT77bJr4STcmsGAESr06BYGE8woZdSdEgqnpyqac7sugNO+Tr4bGwGF3MsnEkGKhU2KL2xh6Ec+BqsaHA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js" integrity="sha512-P2IDYZfqSwjcSjX0BKeNhwRUH8zRPGlgcWl5n6gBLzdi4Y5/0O4zaXrtO4K9TZK6Hn1BenYpKowuCavNandERg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- JS próprio -->
+    <script type="module" src="js/traje.js"></script>
+</head>
+
+<body>
+    <h1 class="hidden">Traje Passeio Completo</h1>
+
+    <!-- Header -->
+    <h2 class="hidden">Header</h2>
+    <header class="header-con header-solido">
+        <!-- Navegação principal -->
+        <nav class="header-nav grid-con" aria-label="Navegação principal">
+            <h3 class="hidden">Navegação principal</h3>
+
+            <a class="header-logo col-span-2 m-col-span-2" href="index.html#inicio" aria-label="Julia e Marcos, voltar ao início">
+                <img src="images/Simbolo_fBordo.svg" alt="" width="64" height="64">
+            </a>
+
+            <button class="header-burger col-span-2" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="header-links">
+                <i class="fa-solid fa-bars" aria-hidden="true"></i>
+            </button>
+
+            <ul class="header-links m-col-span-10" id="header-links">
+                <li><a class="header-link" href="index.html#detalhes">O Casamento</a></li>
+                <li><a class="header-link" href="index.html#rsvp">RSVP</a></li>
+                <li><a class="header-link" href="index.html#presentes">Presentes</a></li>
+                <li><a class="header-link" href="index.html#galeria">Fotos</a></li>
+                <li><a class="header-link" href="index.html#faq">Dúvidas</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Conteúdo principal -->
+    <main>
+        <!-- Traje -->
+        <section class="traje-con" id="inicio">
+            <div class="grid-con">
+                <div class="traje-intro col-span-full m-col-start-3 m-col-span-8 l-col-start-4 l-col-span-6" data-reveal>
+                    <img class="traje-icone" src="images/icones/dress-code.svg" alt="" width="68" height="71">
+                    <h2 class="secao-script">Traje Passeio Completo</h2>
+                    <p class="secao-texto">Para homens: terno, camisa, gravata e sapato social.</p>
+                    <p class="secao-texto">Para mulheres: vestidos longos ou conjuntos elegantes.</p>
+                </div>
+            </div>
+
+            <!-- Fotos de referência: duas por linha no celular e quatro a partir do tablet -->
+            <div class="traje-fotos grid-con">
+                <img class="traje-foto col-span-2 m-col-span-3" src="images/traje/1-traje.webp" alt="Homem de terno azul-marinho, camisa branca e gravata escura" width="600" height="750" loading="lazy" data-reveal>
+                <img class="traje-foto col-span-2 m-col-span-3" src="images/traje/2-traje.webp" alt="Mulher de vestido longo terracota, com mangas compridas" width="600" height="750" loading="lazy" data-reveal>
+                <img class="traje-foto col-span-2 m-col-span-3" src="images/traje/3-traje.webp" alt="Homem de terno cinza-escuro, camisa branca e gravata marrom" width="600" height="750" loading="lazy" data-reveal>
+                <img class="traje-foto col-span-2 m-col-span-3" src="images/traje/4-traje.webp" alt="Mulher de vestido longo preto" width="600" height="750" loading="lazy" data-reveal>
+            </div>
+        </section>
+
+        <!-- Cerimonialista -->
+        <section class="ajuda-con" id="cerimonialista">
+            <div class="grid-con">
+                <div class="ajuda-chamada col-span-full" data-reveal>
+                    <h2 class="secao-titulo">Ficou alguma dúvida?</h2>
+                    <!-- TODO: trocar o href por https://wa.me/55DDDNUMERO com a mensagem inicial -->
+                    <a class="botao botao-claro" href="#cerimonialista" data-track="clique_whatsapp_cerimonialista">
+                        <i class="ajuda-icone fa-brands fa-whatsapp" aria-hidden="true"></i> Falar com a Cerimonialista
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <h2 class="hidden">Rodapé</h2>
+    <footer class="footer-con">
+        <div class="grid-con">
+            <div class="footer-conteudo col-span-full">
+                <img class="footer-logo" src="images/Principal_fBordo.svg" alt="Julia &amp; Marcos" width="200" height="77" loading="lazy">
+                <p class="footer-data"><time datetime="2027-05-29T13:00-03:00">29 de maio de 2027, às 13h</time></p>
+                <p class="footer-local">Villa Casarão</p>
+                <a class="footer-topo" href="#inicio">Voltar ao topo <i class="fa-solid fa-arrow-up" aria-hidden="true"></i></a>
+                <p class="footer-copyright">2026 &copy; Todos os direitos reservados</p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

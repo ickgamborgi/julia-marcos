@@ -1,0 +1,99 @@
+// Header: barra fixa, transparente sobre o vídeo e sólida depois que a página rola.
+
+@use "../abstracts/variables" as a;
+@use "../abstracts/mixins" as m;
+@use "../abstracts/fonts" as f;
+
+/* --Primeiro: Mobile--- */
+.header-con {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    color: a.$creme;
+    transition: background-color a.$transicao, box-shadow a.$transicao;
+
+    // Classes aplicadas por js/modules/header.js
+    // header-solido: páginas sem o vídeo no topo, onde o menu claro sumiria sobre o creme
+    &.header-scrolled,
+    &.header-aberto,
+    &.header-solido {
+        background-color: a.$vinho;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+    }
+}
+
+.header-nav {
+    align-items: center;
+    min-height: a.$header-altura;
+}
+
+.header-logo {
+    width: 52px;
+
+    img {
+        width: 100%;
+    }
+}
+
+.header-burger {
+    justify-self: end;
+    width: 48px;
+    height: 48px;
+    font-size: 1.375rem;
+}
+
+// No celular, o menu é um painel que desce do header
+.header-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 16px 10% 32px;
+    background-color: a.$vinho;
+    // visibility tira os links da ordem do teclado enquanto o menu está fechado
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: opacity a.$transicao, transform a.$transicao, visibility a.$transicao;
+
+    &.header-links-aberto {
+        visibility: visible;
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.header-link {
+    @include f.fonte-rotulo;
+    display: block;
+    padding: 10px 0;
+    text-decoration: none;
+
+    &:hover {
+        color: a.$verde-claro;
+    }
+}
+
+@include m.tablet {
+    .header-burger {
+        display: none;
+    }
+
+    // Do tablet em diante, os links voltam para a linha do grid
+    .header-links {
+        position: static;
+        flex-direction: row;
+        justify-content: flex-end;
+        gap: 32px;
+        padding: 0;
+        background: none;
+        visibility: visible;
+        opacity: 1;
+        transform: none;
+    }
+}

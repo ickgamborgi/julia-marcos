@@ -1,0 +1,27 @@
+// Mixins globais. As media queries ficam aqui para os breakpoints serem iguais em todo o site.
+
+@use "variables" as a;
+
+@mixin tablet {
+    @media (min-width: a.$bp-tablet) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (min-width: a.$bp-desktop) {
+        @content;
+    }
+}
+
+// Fundo oliva com degradê leve e textura de papel marcatto. Fica aqui para as seções
+// que usam esse fundo continuarem iguais se a textura ou o degradê mudarem.
+@mixin fundo-marcatto {
+    background-color: a.$oliva; // reserva, caso a textura não carregue
+    background-image:
+        url("../images/textura-marcatto.webp"),
+        linear-gradient(135deg, a.$oliva 55%, a.$oliva-escuro);
+    background-size: 256px, auto; // arquivo de 512px em metade do tamanho: grão fino, nítido em tela retina
+    // Em soft-light, o cinza médio da textura não altera a cor: só o relevo do papel aparece
+    background-blend-mode: soft-light, normal;
+}

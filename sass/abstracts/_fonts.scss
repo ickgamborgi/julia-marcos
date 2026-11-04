@@ -1,0 +1,33 @@
+// Estilos de texto reutilizáveis, seguindo os papéis definidos no manual de marca.
+
+@use "variables" as a;
+
+// Títulos de destaque
+@mixin fonte-titulo {
+    font-family: a.$fonte-titulo;
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+// Só para detalhes em tamanho grande: o manual avisa que perde a legibilidade quando pequena
+@mixin fonte-script {
+    font-family: a.$fonte-script;
+    font-weight: 400;
+    line-height: 1.1;
+}
+
+// Corpo de texto, datas, menus
+@mixin fonte-texto {
+    font-family: a.$fonte-texto;
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+// Rótulos pequenos em caixa alta, como os do manual
+@mixin fonte-rotulo {
+    font-family: a.$fonte-texto;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}

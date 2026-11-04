@@ -1,0 +1,38 @@
+// Botões: formato de pílula, igual às amostras de cor do manual de marca.
+
+@use "../abstracts/variables" as a;
+@use "../abstracts/fonts" as f;
+
+/* --Primeiro: Mobile--- */
+.botao {
+    @include f.fonte-rotulo;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 48px; // área de toque confortável no celular
+    padding: 12px 32px;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: background-color a.$transicao, color a.$transicao;
+}
+
+// Para fundos escuros
+.botao-claro {
+    background-color: a.$creme;
+    color: a.$vinho;
+
+    &:hover {
+        background-color: a.$verde-claro;
+    }
+}
+
+// Para fundos claros
+.botao-escuro {
+    background-color: a.$bordo;
+    color: a.$creme;
+
+    &:hover {
+        background-color: a.$vinho;
+    }
+}

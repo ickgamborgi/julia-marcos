@@ -1,0 +1,94 @@
+// Hero: vídeo em loop no fundo, com a logo animada e a data do casamento por cima.
+
+@use "../abstracts/variables" as a;
+@use "../abstracts/mixins" as m;
+@use "../abstracts/fonts" as f;
+
+/* --Primeiro: Mobile--- */
+.hero-con {
+    position: relative;
+    display: grid;
+    align-items: center;
+    min-height: 100vh;
+    min-height: 100svh; // svh considera a barra do navegador no celular
+    overflow: hidden;
+    background-color: a.$vinho;
+    color: a.$creme;
+}
+
+.hero-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+// Garante o contraste da logo clara sobre qualquer trecho do vídeo
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    // O degradê no topo reforça o contraste do menu, que fica sobre o vídeo
+    background:
+        linear-gradient(to bottom, a.$overlay-hero, transparent 30%),
+        a.$overlay-hero;
+}
+
+.hero-conteudo {
+    position: relative;
+    width: 100%;
+}
+
+.hero-marca {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    text-align: center;
+}
+
+.hero-logo {
+    width: 100%;
+    max-width: 480px;
+    fill: a.$creme;
+}
+
+.hero-data {
+    @include f.fonte-titulo;
+    font-size: 1.75rem;
+    letter-spacing: 0.08em;
+}
+
+// Antes da animação começar, logo e data ficam escondidas para não piscarem.
+// A animação abaixo é uma rede de segurança: se o JS não rodar (ex.: arquivo aberto
+// direto, sem servidor), os dois elementos aparecem sozinhos depois de 3 segundos.
+.js .hero-logo,
+.js .hero-data {
+    visibility: hidden;
+    animation: hero-mostrar 0s linear 3s forwards;
+}
+
+@keyframes hero-mostrar {
+    to {
+        visibility: visible;
+    }
+}
+
+.hero-seta {
+    position: absolute;
+    left: 50%;
+    bottom: 24px;
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    transform: translateX(-50%);
+    font-size: 1.125rem;
+    text-decoration: none;
+}
+
+@include m.tablet {
+    .hero-data {
+        font-size: 2.25rem;
+    }
+}

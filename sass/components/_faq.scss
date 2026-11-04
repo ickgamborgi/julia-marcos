@@ -1,0 +1,80 @@
+// Perguntas frequentes: acordeão que abre e fecha com transição de altura.
+
+@use "../abstracts/variables" as a;
+@use "../abstracts/mixins" as m;
+
+/* --Primeiro: Mobile--- */
+.faq-con {
+    padding-block: a.$secao-espaco;
+    color: a.$bordo;
+
+    .secao-titulo {
+        text-align: center;
+    }
+}
+
+.faq-lista {
+    display: flex;
+    flex-direction: column;
+    margin-top: 32px;
+}
+
+.faq-item {
+    border-bottom: 1px solid #7d153175;
+}
+
+.faq-pergunta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+    min-height: 48px;
+    padding: 16px 0; // zera o padding lateral padrão do botão, para alinhar com a linha
+    font-size: 1.0625rem;
+    font-weight: 700;
+    text-align: left;
+
+    i {
+        flex-shrink: 0;
+        transition: transform 0.4s ease;
+    }
+}
+
+// O CSS não consegue animar height até "auto", mas anima linhas de grid de 0fr a 1fr.
+// O visibility tira a resposta fechada da leitura de tela e da ordem do teclado.
+.faq-painel {
+    display: grid;
+    grid-template-rows: 0fr;
+    visibility: hidden;
+    transition: grid-template-rows 0.4s ease, visibility 0.4s ease;
+}
+
+// min-height: 0 e overflow permitem que a linha encolha menos que o conteúdo
+.faq-painel-interno {
+    min-height: 0;
+    overflow: hidden;
+}
+
+// Classe aplicada por js/modules/faq.js
+.faq-item-aberto {
+    .faq-painel {
+        grid-template-rows: 1fr;
+        visibility: visible;
+    }
+
+    .faq-pergunta i {
+        transform: rotate(180deg);
+    }
+}
+
+.faq-resposta {
+    padding-bottom: 20px;
+    color: a.$vinho;
+}
+
+@include m.desktop {
+    .faq-con {
+        padding-block: a.$secao-espaco-desktop;
+    }
+}

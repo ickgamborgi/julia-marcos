@@ -1,0 +1,29 @@
+// Presentes: chamada para a lista de presentes.
+
+@use "../abstracts/variables" as a;
+@use "../abstracts/mixins" as m;
+
+/* --Primeiro: Mobile--- */
+.presentes-con {
+    padding-block: a.$secao-espaco;
+    @include m.fundo-marcatto;
+    color: a.$creme;
+}
+
+.presentes-chamada {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    text-align: center;
+}
+
+.presentes-icone {
+    font-size: 2rem;
+}
+
+@include m.desktop {
+    .presentes-con {
+        padding-block: a.$secao-espaco-desktop;
+    }
+}

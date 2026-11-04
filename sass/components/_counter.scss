@@ -1,0 +1,70 @@
+// Contagem regressiva até a data do casamento.
+
+@use "../abstracts/variables" as a;
+@use "../abstracts/mixins" as m;
+@use "../abstracts/fonts" as f;
+
+/* --Primeiro: Mobile--- */
+.contagem-con {
+    padding-block: a.$secao-espaco;
+    color: a.$oliva;
+    text-align: center;
+}
+
+// Um número ao lado do outro desde o celular
+.contagem-numeros {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-top: 32px;
+}
+
+.contagem-item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.contagem-valor {
+    @include f.fonte-titulo;
+    // Caixa só em volta do número, como em um contador: o rótulo fica de fora, logo abaixo
+    display: block;
+    padding: 16px 4px;
+    border: 1px solid tranparent;
+    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+    border-radius: 12px;
+    // Encolhe nas telas estreitas para os três dígitos dos dias caberem na caixa
+    font-size: clamp(2.125rem, 10.5vw, 3rem);
+    line-height: 1;
+    // Largura igual em todos os algarismos: os números não "dançam" ao mudar
+    font-variant-numeric: tabular-nums;
+}
+
+.contagem-rotulo {
+    @include f.fonte-rotulo;
+    color: a.$oliva;
+}
+
+.contagem-chegou {
+    margin-top: 32px;
+}
+
+@include m.tablet {
+    // Colunas de largura fixa e centralizadas: 1fr espalharia os números pelo grid inteiro
+    .contagem-numeros {
+        grid-template-columns: repeat(3, 150px);
+        justify-content: center;
+        gap: 16px;
+    }
+
+    .contagem-valor {
+        padding-block: 20px;
+        font-size: 4rem;
+    }
+}
+
+@include m.desktop {
+    .contagem-con {
+        padding-block: a.$secao-espaco-desktop;
+    }
+}
