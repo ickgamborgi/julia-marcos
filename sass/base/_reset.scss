@@ -1,0 +1,37 @@
+// Complemento do css/reset.css: cobre só o que aquele reset não trata.
+
+// O grid.css usa box-sizing: inherit, então a raiz precisa definir o valor
+html {
+    box-sizing: border-box;
+}
+
+// Evita o espaço fantasma abaixo de mídias
+img,
+video,
+svg {
+    display: block;
+    height: auto;
+}
+
+// Formulários não herdam a fonte da página por padrão
+button,
+input,
+textarea {
+    font: inherit;
+    color: inherit;
+}
+
+button {
+    background: none;
+    border: 0;
+    cursor: pointer;
+}
+
+a {
+    color: inherit;
+}
+
+// Garante que hidden vença qualquer display definido nos componentes
+[hidden] {
+    display: none !important;
+}

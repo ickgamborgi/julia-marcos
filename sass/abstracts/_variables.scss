@@ -1,0 +1,37 @@
+// Variáveis globais do projeto. Cores e fontes vêm do manual de marca (assets/Julia-Marcos-MARCA.pdf).
+
+// Cores
+$vinho: #4d0622;
+$bordo: #7d1530;
+$creme: #fff5d6;
+$verde-claro: #c2c267;
+$oliva: #626b48;
+$overlay-hero: rgba(77, 6, 34, 0.5);
+$gradiente-marca: linear-gradient(120deg, $bordo, $vinho);
+$overlay-rsvp: rgba($vinho, 0.75); // o vinho é o tom mais escuro do vermelho da marca
+$sombra-foto: 0 4px 8px rgba(0, 0, 0, 0.4);
+$galeria-folga-hover: 32px; // espaço para a foto ampliada e a sombra não serem cortadas
+$cor-contorno: rgba($bordo, 0.5); // contorno leve dos cartões e do contador
+$oliva-escuro: #4f573a; // só para o fim do degradê da Lista de Presentes, derivado do oliva
+
+// Cores de estado dos formulários, sempre dentro da paleta do manual
+$cor-sim: $oliva;
+$cor-nao: $bordo;
+$cor-borda-campo: rgba(77, 6, 34, 0.5); // neutra, para o verde da confirmação se destacar
+
+// Fontes
+$fonte-titulo: "Bodoni Moda", "Bodoni 72", Didot, serif;
+$fonte-script: "Luxurious Script", cursive;
+$fonte-texto: "Nunito", Arial, sans-serif;
+
+// Outros
+$bp-tablet: 768px; // mesmo breakpoint do grid.css
+$bp-desktop: 1200px; // mesmo breakpoint do grid.css
+$header-altura: 72px;
+$secao-espaco: 72px;
+$secao-espaco-desktop: 90px;
+$raio: 16px;
+$galeria-modal-margem: 16px;
+$galeria-gap: 16px;
+$galeria-vizinha-mobile: 0.4; // quanto de cada foto vizinha aparece no celular (40%)
+$transicao: 0.3s ease;

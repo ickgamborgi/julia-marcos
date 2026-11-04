@@ -1,0 +1,338 @@
+// RSVP: chamada da seção e modal com o formulário de confirmação.
+
+@use "../abstracts/variables" as a;
+@use "../abstracts/mixins" as m;
+@use "../abstracts/fonts" as f;
+
+/* --Primeiro: Mobile--- */
+// O recorte faz o fundo fixo aparecer só dentro da seção, como uma janela para a imagem
+.rsvp-con {
+    padding-block: a.$secao-espaco;
+    color: a.$creme;
+    clip-path: inset(0);
+
+    // Parallax com elemento fixo: background-attachment: fixed não funciona no Safari do iPhone.
+    // O lvh mantém o tamanho quando a barra do navegador some, para a imagem não dar saltos.
+    &::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        width: 100%;
+        height: 100vh;
+        height: 100lvh;
+        background:
+            linear-gradient(a.$overlay-rsvp, a.$overlay-rsvp),
+            url("../images/bg-parallax.jpg") center / cover no-repeat;
+    }
+}
+
+.rsvp-chamada {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    text-align: center;
+}
+
+// Modal
+.rsvp-modal {
+    width: min(92vw, 560px);
+    max-height: 90vh;
+    max-height: 90dvh;
+    margin: auto; // o reset zera a margem que centraliza o dialog nativo
+    padding: 40px 16px 24px; // lateral menor no celular, para as opções caberem lado a lado
+    border: 0;
+    border-radius: a.$raio;
+    background-color: a.$creme;
+    color: a.$vinho;
+    overflow-y: auto;
+
+    &::backdrop {
+        background-color: rgba(77, 6, 34, 0.75);
+    }
+}
+
+.rsvp-fechar {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 48px;
+    height: 48px;
+    font-size: 1.25rem;
+}
+
+// O arquivo da logo é quadrado, com a arte no meio: o recorte tira a sobra de cima e de baixo
+.rsvp-logo {
+    width: 220px;
+    height: 110px;
+    margin-inline: auto;
+    object-fit: cover;
+}
+
+.rsvp-titulo {
+    @include f.fonte-titulo;
+    margin-top: 8px;
+    font-size: 1.375rem;
+    letter-spacing: 0.06em;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.rsvp-data {
+    @include f.fonte-rotulo;
+    margin-block: 4px 24px;
+    color: a.$oliva;
+    text-align: center;
+}
+
+.rsvp-form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.rsvp-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.rsvp-input {
+    display: block;
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid a.$cor-borda-campo;
+    border-radius: 8px;
+    background-color: #fff;
+    transition: border-color a.$transicao, box-shadow a.$transicao;
+    // Abaixo de 16px, o iPhone dá zoom na página ao focar o campo
+    font-size: 1rem;
+}
+
+.rsvp-status {
+    margin-top: 8px;
+    font-size: 0.875rem;
+    color: a.$oliva;
+}
+
+// Resultados da busca
+.rsvp-resultados {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 12px;
+
+    // Sem resultados, a lista vazia não pode ocupar o espaço da margem
+    &:empty {
+        margin-top: 0;
+    }
+}
+
+.rsvp-resultado {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+    min-height: 48px;
+    padding: 10px 16px;
+    border: 1px solid a.$bordo;
+    border-radius: 8px;
+    color: a.$bordo;
+    text-align: left;
+    transition: background-color a.$transicao, color a.$transicao;
+
+    &:hover {
+        background-color: a.$bordo;
+        color: a.$creme;
+    }
+}
+
+// Lista de convidados escolhidos
+.rsvp-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    // Sem convidados, o gap do formulário não pode sobrar em volta da lista vazia
+    &:empty {
+        display: none;
+    }
+}
+
+.rsvp-convidado {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 8px 12px 12px;
+    border: 1px solid a.$cor-borda-campo;
+    border-radius: 12px;
+}
+
+.rsvp-convidado-topo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.rsvp-convidado-nome {
+    font-weight: 700;
+}
+
+.rsvp-remover {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    margin-right: -12px; // alinha o ícone com a borda do conteúdo, mantendo a área de toque
+}
+
+.rsvp-opcoes {
+    display: flex;
+    gap: 8px;
+}
+
+// Círculo de confirmação, usado nas opções e nos campos validados. Vazio até ser confirmado
+.rsvp-marca {
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: 20px;
+    height: 20px;
+    border: 1px solid a.$cor-borda-campo;
+    border-radius: 50%;
+    font-size: 0.6875rem;
+    color: transparent;
+    transition: background-color a.$transicao, border-color a.$transicao, color a.$transicao;
+}
+
+// Pinta a marca e o contorno com a cor da resposta
+@mixin rsvp-confirmado($cor) {
+    border-color: $cor;
+    box-shadow: inset 0 0 0 1px $cor;
+
+    .rsvp-marca {
+        border-color: $cor;
+        background-color: $cor;
+        color: a.$creme;
+    }
+}
+
+.rsvp-opcao {
+    position: relative;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    gap: 6px;
+    min-height: 48px;
+    padding-inline: 10px;
+    border: 1px solid a.$cor-borda-campo;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: border-color a.$transicao, box-shadow a.$transicao;
+
+    // O radio nativo fica invisível sobre a opção inteira: continua acessível pelo teclado
+    // e o navegador ainda consegue apontar para ele o aviso de campo obrigatório
+    input {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    // Como o radio está invisível, o foco do teclado aparece no círculo
+    input:focus-visible + .rsvp-marca {
+        outline: 3px solid currentColor;
+        outline-offset: 2px;
+    }
+}
+
+.rsvp-opcao-sim:has(input:checked) {
+    @include rsvp-confirmado(a.$cor-sim);
+}
+
+.rsvp-opcao-nao:has(input:checked) {
+    @include rsvp-confirmado(a.$cor-nao);
+}
+
+// Campos com confirmação: :valid já considera o required e as regras do JS
+.rsvp-campo-validado {
+    position: relative;
+
+    .rsvp-input {
+        padding-right: 44px; // reserva o espaço da marca
+    }
+
+    .rsvp-marca {
+        position: absolute;
+        top: 50%;
+        right: 12px;
+        transform: translateY(-50%);
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .rsvp-input:valid {
+        border-color: a.$cor-sim;
+        box-shadow: inset 0 0 0 1px a.$cor-sim;
+    }
+
+    .rsvp-input:valid + .rsvp-marca {
+        border-color: a.$cor-sim;
+        background-color: a.$cor-sim;
+        color: a.$creme;
+        opacity: 1;
+    }
+}
+
+// Finalização: celular, verificação e envio
+.rsvp-finalizar {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.rsvp-verificacao {
+    max-width: 96px;
+}
+
+.rsvp-sucesso {
+    margin-top: 16px;
+    text-align: center;
+
+    // Recebe foco só para o leitor de tela anunciar a mensagem: não é um elemento clicável
+    &:focus {
+        outline: none;
+    }
+}
+
+.rsvp-sucesso-texto {
+    font-size: 1.125rem;
+}
+
+@include m.tablet {
+    .rsvp-modal {
+        padding: 40px 48px;
+    }
+
+    .rsvp-opcao {
+        padding-inline: 16px;
+        gap: 10px;
+    }
+}
+
+@include m.desktop {
+    .rsvp-con {
+        padding-block: a.$secao-espaco-desktop;
+    }
+}

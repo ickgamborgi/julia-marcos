@@ -1,0 +1,191 @@
+// Galeria: carrossel em loop com as fotos do casal. O loop é feito em js/modules/gallery.js.
+
+@use "../abstracts/variables" as a;
+@use "../abstracts/mixins" as m;
+
+/* --Primeiro: Mobile--- */
+.galeria-con {
+    padding-block: a.$secao-espaco;
+    background: a.$gradiente-marca;
+    color: a.$creme;
+}
+
+// Título e setas centralizados em todas as telas, como as outras seções
+.galeria-topo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 32px;
+    text-align: center;
+}
+
+.galeria-controles {
+    display: flex;
+    gap: 16px;
+}
+
+.galeria-botao {
+    width: 48px;
+    height: 48px;
+    border: 1px solid a.$creme;
+    border-radius: 50%;
+    transition: background-color a.$transicao, color a.$transicao;
+
+    &:hover {
+        background-color: a.$creme;
+        color: a.$vinho;
+    }
+}
+
+// Margem lateral do carrossel no celular, que define o tamanho da foto central. A largura da tela
+// é igual a uma foto + 2 vizinhas de 40% + 2 espaços, ou seja: largura da foto = (100% - 2 espaços) / 1,8.
+// A margem é a parte visível da vizinha mais o espaço. Assim, a conta vale para qualquer celular.
+$galeria-margem-mobile: calc((100% - a.$galeria-gap * 2) * a.$galeria-vizinha-mobile / (1 + a.$galeria-vizinha-mobile * 2) + a.$galeria-gap);
+
+// Scroll snap dá o arraste com o dedo sem precisar de biblioteca de carrossel.
+.galeria-track {
+    display: flex;
+    gap: a.$galeria-gap;
+    padding-inline: $galeria-margem-mobile;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: $galeria-margem-mobile;
+    scrollbar-width: none;
+    user-select: none; // arrastar com o mouse não pode selecionar texto nem imagem
+    // Um elemento com rolagem corta tudo o que passa dele. O padding abre espaço para o hover
+    // da foto, e a margem negativa compensa, para o layout da seção continuar igual.
+    margin-block: calc(a.$galeria-folga-hover * -1);
+    padding-block: a.$galeria-folga-hover;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+// Classe aplicada por js/modules/gallery.js durante o arraste com o mouse. O travamento fica
+// desligado porque puxaria a foto de volta a cada movimento. Ele retorna ao final da animação.
+.galeria-track-arrastando {
+    scroll-snap-type: none;
+    cursor: grabbing;
+
+    .galeria-foto {
+        cursor: grabbing;
+    }
+}
+
+// Ocupa todo o espaço entre as margens: no celular, a foto central com as vizinhas nos dois lados
+.galeria-slide {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+
+    img {
+        width: 100%;
+        // Proporção real das fotos: o espaço fica reservado antes de elas carregarem (lazy loading),
+        // e o object-fit só atua se uma foto futura tiver outro formato
+        aspect-ratio: 1170 / 1620;
+        border-radius: a.$raio;
+        object-fit: cover;
+    }
+}
+
+// A foto inteira é um botão: um clique abre a versão ampliada, e segurar e mover arrasta o carrossel
+.galeria-foto {
+    display: block;
+    width: 100%;
+    padding: 0;
+    position: relative; // necessário para o z-index do hover
+    border-radius: a.$raio;
+    cursor: grab;
+    transition: transform a.$transicao, box-shadow a.$transicao;
+
+    // Para dentro: o carrossel corta o que passa da borda dele
+    &:focus-visible {
+        outline-offset: -6px;
+    }
+}
+
+// Só com mouse: no toque, o hover ficaria preso na foto depois de tocar nela.
+// Durante o arraste fica desligado, para a foto não crescer enquanto passa sob o cursor.
+@media (hover: hover) and (pointer: fine) {
+    .galeria-track:not(.galeria-track-arrastando) .galeria-foto:hover {
+        z-index: 1; // a foto ampliada passa por cima das vizinhas
+        transform: scale(1.04);
+        box-shadow: a.$sombra-foto;
+    }
+}
+
+// Modal da foto: ocupa a tela inteira, e a área em volta da imagem fecha ao clicar
+.galeria-modal {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    max-height: none;
+    margin: 0;
+    padding: a.$galeria-modal-margem;
+    border: 0;
+    background-color: rgba(77, 6, 34, 0.92);
+    color: a.$creme;
+    overflow: hidden;
+
+    // Só quando aberto: com display na regra geral, o dialog fechado ficaria visível
+    &[open] {
+        display: grid;
+        place-items: center;
+        animation: galeria-modal-entrar 0.25s ease;
+    }
+
+    &::backdrop {
+        background: transparent;
+    }
+}
+
+@keyframes galeria-modal-entrar {
+    from {
+        opacity: 0;
+    }
+}
+
+// O JS informa a proporção da foto. Com ela, a imagem ocupa o máximo da tela sem cortes e
+// sem sobrar área transparente em volta, que seria contada como clique na foto e não fora dela.
+.galeria-modal-foto {
+    width: min(100%, calc((100dvh - #{a.$galeria-modal-margem * 2}) * var(--foto-razao, 1)));
+    height: auto;
+    aspect-ratio: var(--foto-razao, 1);
+    border-radius: 8px;
+}
+
+// Fundo próprio para o X continuar legível se a foto passar por baixo dele
+.galeria-modal-fechar {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 1;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: a.$vinho;
+    font-size: 1.25rem;
+}
+
+@include m.tablet {
+    // A partir do tablet, o padding de 10% alinha a primeira foto com as colunas do grid.css
+    .galeria-track {
+        padding-inline: 10%;
+        scroll-padding-inline: 10%;
+    }
+
+    .galeria-slide {
+        flex-basis: 42%;
+    }
+}
+
+@include m.desktop {
+    .galeria-con {
+        padding-block: a.$secao-espaco-desktop;
+    }
+
+    .galeria-slide {
+        flex-basis: 28%;
+    }
+}
